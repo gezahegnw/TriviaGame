@@ -1,0 +1,37 @@
+body{
+	background-color: url("http://www.wallpapers13.com/wp-content/uploads/2016/01/Waterfalls-Rivers-Nature-374050-1280x768.jpg");
+	font-size: 25px;
+}
+
+.jumbotron{
+	text-align: center;
+	background-color: rgb(133, 196, 201);
+}
+.resetGame{
+	background-color: #56ce84;
+	color: white;
+	font-size: 30px;
+	padding: 20px;
+	margin-top: 100px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.resetGame:hover{
+	background-color: #52242a;
+}
+
+.container{
+	margin-top: 50px;
+	text-align: center;
+	height: 100%;
+	width: 840px;
+}
+
+
+.userChoice:hover{
+	background-color: #3985a8;
+	color: white;
+	padding: 10px;
+}
+
+
+
