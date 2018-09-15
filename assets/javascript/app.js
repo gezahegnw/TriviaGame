@@ -1,63 +1,63 @@
 //trivia game questions arrays
 const myQuestionLists = [{
 	myTriviaQuestion: "In the year 1900 in the U.S. what were the most popular first names given to boy and girl babies??",
-	answerList: ["William and Elizabeth", "Joseph and Catherine", "John and Mary", "George and Anne"],
+	answerArray: ["William and Elizabeth", "Joseph and Catherine", "John and Mary", "George and Anne"],
 	answerIs: 2
 },{
 	myTriviaQuestion: "Which of the following items was owned by the fewest U.S. homes in 1990?",
-	answerList: ["home computer", "compact disk player", "cordless phone", "dishwasher."],
+	answerArray: ["home computer", "compact disk player", "cordless phone", "dishwasher."],
 	answerIs: 1
 },{
 	myTriviaQuestion: "Who is third behind Hank Aaron and Babe Ruth in major league career home runs?",
-	answerList: ["Reggie Jackson", "Harmon Killebrew", "Willie Mays", "Frank Robinson"],
+	answerArray: ["Reggie Jackson", "Harmon Killebrew", "Willie Mays", "Frank Robinson"],
 	answerIs: 2
 },{
 	myTriviaQuestion: "During the 1980s for six consecutive years what breed of dog was the most popular in the U.S.?",
-	answerList: ["cocker spaniel", "German shepherd", "Labrador retriever", "poodle."],
+	answerArray: ["cocker spaniel", "German shepherd", "Labrador retriever", "poodle."],
 	answerIs: 0
 },{
 	myTriviaQuestion: "In 1985, five percent of U.S. households had telephone answering machines. By 1990 what percentage of homes had answering machines?",
-	answerList: ["10 percent", "15 percent", "31 percent", "51 percent"],
+	answerArray: ["10 percent", "15 percent", "31 percent", "51 percent"],
 	answerIs: 2
 },{
 	myTriviaQuestion: "The first black American pictured on a U.S. postage stamp was who?",
-	answerList: ["Frederick Douglass", "Booker T. Washington", "Louis Armstrong", "Joe Louis"],
+	answerArray: ["Frederick Douglass", "Booker T. Washington", "Louis Armstrong", "Joe Louis"],
 	answerIs: 3
 },{
 	myTriviaQuestion: "What did the 'D' in 'D-Day' stand for?",
-	answerList: ["doom", "day", "Dwight (Eisenhower)", "Dunkirk"],
+	answerArray: ["doom", "day", "Dwight (Eisenhower)", "Dunkirk"],
 	answerIs: 1
 },{
 	myTriviaQuestion: "The Brownie Box Camera introduced by Eastman Kodak in 1900 had a retail price of what?",
-	answerList: ["$1", "$5", "$10", "$13"],
+	answerArray: ["$1", "$5", "$10", "$13"],
 	answerIs: 0
 },{
 	myTriviaQuestion: "Which of these characters turned 40 years old in 1990?",
-	answerList: ["Charlie Brown", "Bugs Bunny", "Mickey Mouse", "Fred Flintstone"],
+	answerArray: ["Charlie Brown", "Bugs Bunny", "Mickey Mouse", "Fred Flintstone"],
 	answerIs: 0
 },{
 	myTriviaQuestion: "The Philadelphia mint started putting a 'P' mint mark on quarters when?",
-	answerList: ["1960", "1980", "1970", "never"],
+	answerArray: ["1960", "1980", "1970", "never"],
 	answerIs: 1
 },{
 	myTriviaQuestion: "Before becoming George Bush's Secretary of Defense, what was Dick Cheney's position?",
-	answerList: ["congressman from Wyoming", "governor of New Hampshire", "secretary of defense under Ronald Reagan", "governor of New Kansas"],
+	answerArray: ["congressman from Wyoming", "governor of New Hampshire", "secretary of defense under Ronald Reagan", "governor of New Kansas"],
 	answerIs: 0
 },{
 	myTriviaQuestion: " what did the J stand for?",
-	answerList: ["James", "Joseph", "Job", "John"],
+	answerArray: ["James", "Joseph", "Job", "John"],
 	answerIs: 3
 },{
 	myTriviaQuestion: "What year was it that the Census Bureau first reported that a majority of new mothers  were remaining in the new job market?",
-	answerList: ["1968", "1978", "1988", "1998"],
+	answerArray: ["1968", "1978", "1988", "1998"],
 	answerIs: 2
 },{
 	myTriviaQuestion: "Florence Nightingale became known as 'the Lady With the Lamp' during which war?",
-	answerList: ["American Civil War", "Crimean War", "World War I", "World War II"],
+	answerArray: ["American Civil War", "Crimean War", "World War I", "World War II"],
 	answerIs: 1
 },{
 	myTriviaQuestion: "Who holds the record for the most victories in a row on the professional golf tour?",
-	answerList: ["Jack Nicklaus", "Arnold Palmer", "Byron Nelson", "Ben Hogan"],
+	answerArray: ["Jack Nicklaus", "Arnold Palmer", "Byron Nelson", "Ben Hogan"],
 	answerIs: 2
 
 }];
@@ -90,8 +90,8 @@ $('#restartTheGame').on('click', function(){
 	$(this).hide(); //this hides the restart button when the game start.
 	startOverGame();
 });
-//this function makes the game starts over after ever game.
-function startOverGame(){
+//this function makes the game starts over after ever game and clears out the dom
+let startOverGame = function(){
 	currentQuestionOnScreen = 0;
 	correctAnswer = 0;
 	incorrectAnswer = 0;
@@ -102,11 +102,11 @@ function startOverGame(){
 	$('#wrongAnswer').empty();
 	$('#unanswered-quetions').empty();
 }
-
-function nextQuestion(){
+//this will clear the screen before the next quetion display
+let nextQuestion = function(){
 	$('#messageDiv').empty();
 	$('#correctlyAnswered').empty();
-	$('#gif').empty();
+	$('#gif-image').empty();
 	answeredQuetions = true;
 	
 	//this creats new quetions lists and answer list.
@@ -114,7 +114,7 @@ function nextQuestion(){
 	$('.triviaQuestion').html('<h3>' + myQuestionLists[currentQuestionOnScreen].myTriviaQuestion + '</h3>');
 	for(let i = 0; i < 4; i++){
 		let userAnswerIs = $('<div>');
-		userAnswerIs.text(myQuestionLists[currentQuestionOnScreen].answerList[i]);
+		userAnswerIs.text(myQuestionLists[currentQuestionOnScreen].answerArray[i]);
 		userAnswerIs.attr({'data-index': i });
 		userAnswerIs.addClass('userChoice');
 		$('.answerList').append(userAnswerIs);
@@ -128,15 +128,15 @@ function nextQuestion(){
 	});
 }
 
-function gameTimer(){
-	seconds = 5;
-	$('#timeRemainig').html('<h3>Time Remaining: ' + seconds + '</h3>');
+let gameTimer = function(){
+	seconds = 15;
+    $('#timeRemainig').html('<h3>Time Remaining: ' + seconds + " Seconds" + '</h3>');
 	answeredQuetions = true;
 	//sets game timer to go down
 	time = setInterval(dispalysTimer, 1000);
 }
 
-function dispalysTimer(){
+let dispalysTimer =function(){
 	seconds--;
 	//this dispalys remaining time the user has left
 	$('#remainingTime').html('<h3>Time Remaining: ' + seconds + " Seconds" + '</h3>');
@@ -147,32 +147,32 @@ function dispalysTimer(){
 	}
 }
 //this clears and updates the quetions page
-function updateAnsPage(){
+let updateAnsPage = function(){
 	
 
-	let rightAnswerText = myQuestionLists[currentQuestionOnScreen].answerList[myQuestionLists[currentQuestionOnScreen].answerIs];
-	let rightAnswerIndex = myQuestionLists[currentQuestionOnScreen].answerIs;
-	$('#gif').html('<img src = "assets/images/'+ imageLists[currentQuestionOnScreen] +'.gif" width = "400px">');
+	let correctAnswerText = myQuestionLists[currentQuestionOnScreen].answerArray[myQuestionLists[currentQuestionOnScreen].answerIs];
+	let correctAnswerIndex = myQuestionLists[currentQuestionOnScreen].answerIs;
+	$('#gif-image').html('<img src = "assets/images/'+ imageLists[currentQuestionOnScreen] +'.gif" width = "400px">');
 	//checks to see correct, incorrect, or unanswered-quetions
-	if((userSelectAnswer === rightAnswerIndex) && (answeredQuetions === true)){
+	if((userSelectAnswer === correctAnswerIndex) && (answeredQuetions === true)){
 		correctAnswer++;
 		$('#messageDiv').html(displayMessages.correctMsg);
-	} else if((userSelectAnswer !== rightAnswerIndex) && (answeredQuetions === true)){
+	} else if((userSelectAnswer !== correctAnswerIndex) && (answeredQuetions === true)){
 		incorrectAnswer++;
 		$('#messageDiv').html(displayMessages.incorrectMsg);
-		$('#correctlyAnswered').html('The correct answer is: ' + rightAnswerText);
+		$('#correctlyAnswered').html('The correct answer is: ' + correctAnswerText);
 	} else{
 		unansweredQuestions++;
 		$('#messageDiv').html(displayMessages.endTimeMsg);
-		$('#correctlyAnswered').html('The correct answer is: ' + rightAnswerText);
+		$('#correctlyAnswered').html('The correct answer is: ' + correctAnswerText);
 		answeredQuetions = true;
 	}
 	
 	if(currentQuestionOnScreen === (myQuestionLists.length-1)){
-		setTimeout(finalScorePage, 2000)
+		setTimeout(finalScorePage, 3000);
 	} else{
 		currentQuestionOnScreen++;
-		setTimeout(nextQuestion, 2000);
+		setTimeout(nextQuestion, 3000);
 	}	
 	$('#currentQuestion').empty();
 	$('.userChoice').empty(); //Clears myTriviaQuestion page
@@ -180,11 +180,11 @@ function updateAnsPage(){
 }
 
 
-function finalScorePage(){
+let finalScorePage = function(){
 	$('#messageDiv').empty();  //this clears out the messeges and  the messege element in html.
 	$('#remainingTime').empty(); //this clears out the remaning time messeges and  the messege element in html.
 	$('#correctlyAnswered').empty(); //this clears out the final score messeges and  the messege element in html.
-	$('#gif').empty(); //this clears out the images that shows after every quetion time out messeges and  the messege element in html.
+	$('#gif-image').empty(); //this clears out the images that shows after every quetion time out messeges and  the messege element in html.
 	$('#wrongAnswer').empty();
 //this dump the final messages in  to  the html
 	$('#finalScore').html(displayMessages.finishedMsg);
