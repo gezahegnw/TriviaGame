@@ -26,7 +26,9 @@ body{
 	width: 840px;
 }
 
-
+.btn-danger{
+	background-color: rgb(0, 55, 128);
+}
 .userChoice:hover{
 	background-color: #3985a8;
 	color: white;
@@ -42,6 +44,12 @@ body{
 	text-align: center;
 	padding-top: 20px;
 }
+@media (max-width: 768px) { 
+	.btn-danger{
+		background-color: green;
+		margin-right: 50%;
+	}
+ }
 
 
 
